@@ -10,6 +10,7 @@
 .coin     { background: rgb(241, 229, 89); }
 .player   { background: rgb(64, 64, 64);   }
 .powerUp  { background: rgb(153, 102, 255);    }
+.end      { background: yellow;    }
 
 .game {
   overflow: hidden;

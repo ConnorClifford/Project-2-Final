@@ -41,6 +41,8 @@ function Level(plan) {
         fieldType = "lava";
       else if (ch == "$")
         fieldType = "restart";
+      else if (ch == "%")
+        fieldType = "end";
 
       // "Push" the fieldType, which is a string, onto the gridLine array (at the end).
       gridLine.push(fieldType);
@@ -125,6 +127,11 @@ function Restart(pos, ch) {
   this.size = new Vector(1, 1);
 }
 Restart.prototype.type = "restart";
+function End(pos, ch) {
+  this.pos = pos;
+  this.size = new Vector(1, 1);
+}
+End.prototype.type = "end";
 
 // Helper function to easily create an element of a type provided
 function elt(name, className) {
@@ -398,6 +405,10 @@ Level.prototype.playerTouched = function(type, actor) {
     this.actors = this.actors.filter(function(other) {
       return other != actor;
     });
+   if (type == "end") {
+     this.status = "won";
+     this.finishDelay = 1;
+     };
     // If there aren't any coins left, player wins
     if (!this.actors.some(function(actor) {
            return actor.type == "coin";
@@ -406,6 +417,7 @@ Level.prototype.playerTouched = function(type, actor) {
       this.finishDelay = 1;
       gravity = 30;
     }
+
   }
   else if (type == "powerUp") {
    this.actors = this.actors.filter(function(other) {
