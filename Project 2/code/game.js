@@ -405,12 +405,13 @@ Level.prototype.playerTouched = function(type, actor) {
     this.actors = this.actors.filter(function(other) {
       return other != actor;
     });
+  }
    if (type == "end") {
      this.status = "won";
      this.finishDelay = 1;
      };
     // If there aren't any coins left, player wins
-    if (!this.actors.some(function(actor) {
+  if (!this.actors.some(function(actor) {
            return actor.type == "coin";
          })) {
       this.status = "won";
@@ -418,7 +419,6 @@ Level.prototype.playerTouched = function(type, actor) {
       gravity = 30;
     }
 
-  }
   else if (type == "powerUp") {
    this.actors = this.actors.filter(function(other) {
      return other != actor;
